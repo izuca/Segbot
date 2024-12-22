@@ -12,7 +12,7 @@ module.exports = {
         const selectedImage = getRandomImage();
         if(!selectedImage.endsWith('.gif')){
             const image = new AttachmentBuilder(selectedImage);
-            const attachedImage = `attachment://${image}`;
+            const attachedImage = `attachment://${image}`;  // não esta sendo definido no setImage
             typeImage = 1;
         } 
         const exampleEmbed = new EmbedBuilder()
