@@ -2,7 +2,7 @@
 require('dotenv').config()
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
-const { DefaultExtractors } = require('discord-player/extractor');
+const { DefaultExtractors } = require('@discord-player/extractor');
 const token = process.env.DISCORD_TOKEN
 const fs = require('node:fs');
 const path = require('node:path');
