@@ -15,9 +15,16 @@ const client = new Client({ intents:[
 	GatewayIntentBits.GuildVoiceStates
 ]});
 
+// Initialize the Player
 const player = new Player(client);
-await player.extractors.loaddMulti(DefaultExtractors);
 
+// Load the extractors
+async function loadExtractors() {
+    await player.extractors.loadDefault();
+}
+
+// Call the function to load extractors
+loadExtractors().catch(console.error);
 // Reading Commans Folder
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
