@@ -1,18 +1,27 @@
 // Require the necessary discord.js classes
 require('dotenv').config()
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Player } = require('discord-player');
+const { DefaultExtractors } = require('discord-player/extractor');
 const token = process.env.DISCORD_TOKEN
 const fs = require('node:fs');
 const path = require('node:path');
 
 // Create a new client instance
-const client = new Client({ intents:  [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates] });
+const client = new Client({ intents:[
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildVoiceStates
+]});
+
+const player = new Player(client);
+await player.extractors.loaddMulti(DefaultExtractors);
 
 // Reading Commans Folder
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
-
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
@@ -42,7 +51,6 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-
 
 // Log in to Discord with your client's token
 client.login(token);
