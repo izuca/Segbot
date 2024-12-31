@@ -2,7 +2,7 @@
 require('dotenv').config()
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
-const { DefaultExtractors } = require('@discord-player/extractor');
+const { YoutubeiExtractor } = require("discord-player-youtubei")
 const token = process.env.DISCORD_TOKEN
 const fs = require('node:fs');
 const path = require('node:path');
@@ -20,11 +20,13 @@ const player = new Player(client);
 
 // Load the extractors
 async function loadExtractors() {
-    await player.extractors.loadDefault();
+    // await player.extractors.loadDefault();
+	await player.extractors.register(YoutubeiExtractor, {})
 }
 
 // Call the function to load extractors
 loadExtractors().catch(console.error);
+
 // Reading Commans Folder
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');

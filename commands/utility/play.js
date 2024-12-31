@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require('@discordjs/voice');
 const { useMainPlayer } = require('discord-player');
 
@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction) {
         const url = interaction.options.getString('url');
         const player = useMainPlayer();
-
+        // player.extractors.register(YoutubeiExtractor, {})
         
         // // Verifica se a URL é válida
         // if (!ytdl.validateURL(url)) {
@@ -42,31 +42,18 @@ module.exports = {
             return interaction.reply('Me censuraram!');
         }
         try {
-            // Conecta-se ao canal de voz
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+            // Play the song in the voice channel
+            const result = await player.play(voiceChannel, url, {
+                nodeOptions: {
+                    metadata: { channel: interaction.channel }, // Store text channel as metadata on the queue
+                },
             });
-
-            // Cria o player de áudio
-            const player = createAudioPlayer();
-
-            // Cria o recurso de áudio
-            const stream = ytdl(url, { filter: 'audioonly' });
-            const resource = createAudioResource(stream);
-
-            // Adiciona o recurso ao player
-            player.play(resource);
-
-            // Inscreve o player na conexão
-            connection.subscribe(player);
-
-            // Envia a resposta inicial do comando
-            await interaction.reply({ content: `🎵 Tocando agora: ${url}`});
+   
+            // Reply to the user that the song has been added to the queue         
+            await interaction.reply({ content: `${result.track.title} foi adicionado à fila!`});
         } catch (error) {
             console.error(error);
-            interaction.reply({ content: 'Mano deu merda aqui'});
+            await interaction.reply({ content: 'Mano deu merda aqui'});
         }
     },
 };

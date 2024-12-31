@@ -8,6 +8,8 @@ module.exports = {
 
 		const command = interaction.client.commands.get(interaction.commandName);
 		const player = useMainPlayer();
+		// player.extractors.register(YoutubeiExtractor, {})
+		
 		const data = {
 			guild: interaction.guild,
 		};
