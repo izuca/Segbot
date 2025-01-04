@@ -2,7 +2,8 @@
 require('dotenv').config()
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
-const { YoutubeiExtractor } = require("discord-player-youtubei")
+const { YoutubeiExtractor } = require("discord-player-youtubei");
+const { GuildQueueEvent } = require( 'discord-player');
 const token = process.env.DISCORD_TOKEN
 const fs = require('node:fs');
 const path = require('node:path');
@@ -60,6 +61,22 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
+// Handle the event when a track starts playing
+player.events.on(GuildQueueEvent.PlayerStart, async (queue, track) => {
+  // Get the metadata stored on the queue
+  const { channel } = queue.metadata;
+  // Send a message to the channel
+  await channel.send(`Tocando: ${track.title}`);
+});
+ 
+// Handle the event when a track finishes playing
+player.events.on(GuildQueueEvent.PlayerFinish, async (queue, track) => {
+  // Get the metadata stored on the queue
+  const { channel } = queue.metadata;
+  // Send a message to the channel
+  await channel.send(`Cabei de Tocar ${track.title}`);
+});
 
 // Log in to Discord with your client's token
 client.login(token);
