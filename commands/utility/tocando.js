@@ -12,7 +12,7 @@ module.exports = {
       if (!queue) {
         return interaction.reply('Tem nadica de nada tocando.');
       }
-      console.log(queue);
+      
       // Get the currently playing song
       const currentSong = queue.currentTrack;
      
@@ -22,6 +22,6 @@ module.exports = {
       }
      
       // Send the currently playing song information
-      return interaction.reply(`Tô tocando: ${currentSong.name}, que merda de som hein!`);
+      return interaction.reply(`Tô tocando: ${currentSong.title}, de ${currentSong.author}`);
     }
 };
