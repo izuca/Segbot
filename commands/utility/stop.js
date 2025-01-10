@@ -10,12 +10,11 @@ module.exports = {
         // Get the current queue
         const queue = useQueue();
         
-        if (!queue) {
-            return interaction.reply('Nem tem fila pra parar de tocar música.');
+        if(!queue){
+            return interaction.reply('Nem tô tocando música!');
         }
-        
         //Stop the music
-        queue.stop;
+        queue.delete();
         
         // Send a confirmation message
         return interaction.reply('Parei de tocar.');
