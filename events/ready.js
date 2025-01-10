@@ -1,9 +1,11 @@
 const { Events } = require('discord.js');
 const { useMainPlayer } = require('discord-player')
+const { useMainPlayer } = require('discord-player')
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
 	execute(client) {
+		const player = useMainPlayer();
 		const player = useMainPlayer();
 		console.log(`Ready! Logged in as ${client.user.tag}`);
 
