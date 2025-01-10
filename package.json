@@ -18,6 +18,7 @@
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
     "libsodium-wrappers": "^0.7.15",
+    "nodemon": "^3.1.9",
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {

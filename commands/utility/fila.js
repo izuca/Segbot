@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { useQueue } = require('discord-player');
+const { useQueue, useTimeline } = require('discord-player');
  
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,17 +7,18 @@ module.exports = {
       .setDescription('Mostra a fila de músicas.'), // Command description
     async execute(interaction) {
         const queue = useQueue();
- 
+        const timeline = useTimeline();
+
         if (!queue) {
           return interaction.reply('Não tem fila ativa.');
         }
        
         // Get the current track
-        const currentTrack = queue.current;
-       
+        const currentTrack = timeline.track;
+        
         // Get the upcoming tracks
-        const upcomingTracks = queue.tracks.slice(0, 5);
-       
+        const upcomingTracks = queue.tracks.data.slice(0, 5);
+        
         // Create a message with the current track and upcoming tracks
         const message = [
           `**Tocando agora:** ${currentTrack.title} - ${currentTrack.author}`,
