@@ -15,12 +15,7 @@ module.exports = {
     async execute(interaction) {
         const url = interaction.options.getString('url');
         const player = useMainPlayer();
-        // player.extractors.register(YoutubeiExtractor, {})
-        
-        // // Verifica se a URL é válida
-        // if (!ytdl.validateURL(url)) {
-        //     return interaction.reply({ content: 'Coloca uma URL de verdade, por favor!'});
-        // }
+       
 
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
