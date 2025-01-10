@@ -21,7 +21,7 @@ const player = new Player(client);
 
 // Load the extractors
 async function loadExtractors() {
-    await player.extractors.loadDefault();
+    // await player.extractors.loadDefault();
 	await player.extractors.register(YoutubeiExtractor, {});
 }
 
