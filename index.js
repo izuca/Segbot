@@ -62,6 +62,7 @@ for (const file of eventFiles) {
 	}
 }
 
+
 // Handle the event when a track starts playing
 player.events.on(GuildQueueEvent.PlayerStart, async (queue, track) => {
   // Get the metadata stored on the queue
